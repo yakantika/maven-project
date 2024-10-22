@@ -1,34 +1,28 @@
 pipeline {
     agent any
-
+    tools {
+        maven 'Maven'
+    }
     stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/yakantika/maven-project.git'
+            }
+        }
         stage('Build') {
             steps {
-                // Check out the code from Git
-                git branch: 'master', url: 'https://github.com/yakantika/maven-project.git'
-
-                // Build the project with Maven
-                bat 'mvn clean compile'
+                sh 'mvn clean install'  // Compiles the code and packages it
             }
         }
         stage('Test') {
             steps {
-                // Run tests with Maven
-                bat 'mvn test'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                // Simulate deployment step
-                echo 'Deploying the application...'
+                sh 'mvn test'  // Runs JUnit tests
             }
         }
     }
-
     post {
         always {
-            // Archive the test results after every run
-            junit '**/target/surefire-reports/*.xml'
+            junit '**/target/surefire-reports/*.xml'  // Publish test results
         }
     }
 }
