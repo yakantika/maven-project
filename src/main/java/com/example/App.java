@@ -5,11 +5,12 @@ public class App {
         System.out.println("Hello World!");
         // Adding a comment to test Jenkins integration
         System.out.println("Hello");
+        System.out.println("just testing");
 
     }
 
-    public int add(int a, int b) {
+    public int add(int a, int b) 
+    {
         return a + b;
-    }
-    
+    }   
 }
